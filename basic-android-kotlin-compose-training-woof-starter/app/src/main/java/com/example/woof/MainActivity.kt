@@ -147,14 +147,15 @@ fun DogInformation(
     Column(modifier = modifier) {
         Text(
             text = stringResource(dogName),
-            modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small))
+            style = MaterialTheme.typography.displayMedium,
+            modifier = Modifier.padding(top = dimensionResource(id = R.dimen.padding_small))
         )
         Text(
             text = stringResource(R.string.years_old, dogAge),
+            style = MaterialTheme.typography.bodyLarge
         )
     }
 }
-
 /**
  * Composable that displays what the UI of the app looks like in light theme in the design tab.
  */
