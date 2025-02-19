@@ -8,6 +8,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.flow.update
+
+data class GameUiState(
+    val currentScrambledWord: String = "",
+    val isGuessedWordWrong: Boolean = false,
+)
 
 class GameViewModel : ViewModel() {
 
@@ -41,11 +47,22 @@ class GameViewModel : ViewModel() {
         usedWords.clear()
         _uiState.value = GameUiState(currentScrambledWord = pickRandomWordAndShuffle())
     }
+
     fun updateUserGuess(guessedWord: String){
         userGuess = guessedWord
     }
+
+    fun checkUserGuess() {
+
+        if (userGuess.equals(currentWord, ignoreCase = true)) {
+        } else {
+            // User's guess is wrong, show an error
+            _uiState.update { currentState ->
+                currentState.copy(isGuessedWordWrong = true)
+            }
+        // Reset user guess
+        updateUserGuess("")
+        }
+    }
 }
 
-data class GameUiState(
-    val currentScrambledWord: String = ""
-)
